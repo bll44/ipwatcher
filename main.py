@@ -14,7 +14,7 @@ _logger.addHandler(ch)
 
 def main():
     try:
-        with open('ip_info', 'r+') as f:
+        with open(config.ip_info_file, 'r+') as f:
             file_data = json.loads(f.read())
             f.seek(0)
             old_ip = file_data['ip']
