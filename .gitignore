@@ -1,0 +1,5 @@
+config.py
+ip_info
+venv/
+.idea/
+__pycache__/
