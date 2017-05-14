@@ -18,6 +18,8 @@ def main():
     try:
         if not os.path.isfile(config.ip_info_file):
             fh = open(config.ip_info_file, 'w+')
+            fh.seek(0)
+            fh.write(json.dumps({"ip": "0.0.0.0"}))
             fh.close()
         with open(config.ip_info_file, 'r+') as f:
             file_data = f.read()
@@ -32,7 +34,6 @@ def main():
     except Exception as e:
         _logger.debug(e)
         exit()
-
     if old_ip == new_ip:
         _logger.info('IP address has not changed')
 
