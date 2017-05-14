@@ -64,7 +64,7 @@ def main():
         server.login(config.email, config.password)
 
         _body = '\r\n'.join(['To: %s' % (','.join(_to) if len(_to) > 1 else _to[0]),
-                             'From: %s' % 'No-IP Alerts',
+                             'From: %s' % config.from_name,
                              'Subject: %s' % _subject,
                              '', email_msg])
         # endregion
