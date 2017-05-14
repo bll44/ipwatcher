@@ -39,7 +39,7 @@ def main():
     # region Update noip service
     auth_string_raw = '%s:%s' % (config.noip_username, config.noip_password)
     config.noip_base64 = base64.b64encode(auth_string_raw.encode('utf-8'))
-    noip_headers = {'User-Agent': 'ipwatcher/v1 brady.latsha@gmail.com',
+    noip_headers = {'User-Agent': config.noip_user_agent,
                     'Authorization': 'Basic %s' % config.noip_base64.decode('utf-8'),
                     'Host': 'dynupdate.no-ip.com'}
     response = requests.get(config.noip_url % (config.noip_hostname, new_ip), headers=noip_headers)

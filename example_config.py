@@ -13,6 +13,7 @@ ip_info_file = os.path.abspath(os.path.join(__file__, '..', 'ip_info'))
 # endregion
 
 # region No-IP service config
+noip_user_agent = '<program/version email@example.com>'
 noip_username = '<no-ip_username>'
 noip_password = '<no-ip_password>'
 noip_base64 = ''  # leave this blank
