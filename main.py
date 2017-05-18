@@ -5,16 +5,19 @@ import logging
 import smtplib
 import base64
 import os
+import argparse
+import setup
 
+_args = None
 
 _logger = logging.getLogger(__name__)
-_logger.setLevel(logging.DEBUG)
+_logger.setLevel(logging.INFO)
 ch = logging.StreamHandler()
 ch.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s: %(message)s'))
 _logger.addHandler(ch)
 
 
-def main():
+def check_ip():
     try:
         if not os.path.isfile(config.ip_info_file):
             fh = open(config.ip_info_file, 'w+')
@@ -74,6 +77,26 @@ def main():
             _logger.info('Email sent')
         except:
             _logger.error('There was an error when sending the email')
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('setup', help='Run the initial setup of the utility')
+    parser.add_argument('-v', '--verbose', action='store_true', help='Enable verbose logging', dest='v')
+    subparsers = parser.add_subparsers(help='sub-command help')
+    verify_parser = subparsers.add_parser('verify', help='Verify the initial setup')
+    verify_parser.add_argument('--test', help='Do not make any changes when verifying setup',
+                               dest='test', action='store_true')
+    _args = parser.parse_args()
+
+    if _args.v:
+        _logger.setLevel(logging.DEBUG)
+        _logger.debug('Verbose logging enabled')
+
+    if _args.setup:
+        setup.init()
+    else:
+        check_ip()
 
 
 if __name__ == '__main__':
